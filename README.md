@@ -45,6 +45,7 @@ click instead of the whole export, there's **[AI Chat Exporter](https://petescri
 - [chatgpt-export-to-markdown](https://github.com/jelonman/chatgpt-export-to-markdown) — turn your export into readable Markdown
 - [chatgpt-export-stats](https://github.com/jelonman/chatgpt-export-stats) — wrapped-style stats from your history
 - [chatgpt-export-search](https://github.com/jelonman/chatgpt-export-search) — search your history from the CLI
+- [claude-export-to-markdown](https://github.com/jelonman/claude-export-to-markdown) — same, for Claude (Claude.ai) exports
 
 ## License
 
