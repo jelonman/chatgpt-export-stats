@@ -28,6 +28,8 @@ you a ZIP with `conversations.json`. Point this script at it and get a summary:
 python3 chatgpt_export_stats.py conversations.json
 ```
 
+✅ Accepts the raw export **.zip** or the extracted `conversations.json`
+
 No dependencies — Python 3 standard library only. Handles both the modern (mapping-tree) and older
 (flat `messages`) export formats. Share your numbers!
 

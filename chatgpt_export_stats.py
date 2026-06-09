@@ -21,6 +21,21 @@ STOP = set("the a an and or but to of in on for with is are was were be been i y
            "if so not no yes will would should could have has had get got make like just want need".split())
 
 
+import zipfile
+
+def _load_export(path):
+    """Load conversations from a ChatGPT export — accepts the raw .zip or conversations.json."""
+    if path.lower().endswith(".zip"):
+        with zipfile.ZipFile(path) as z:
+            name = next((n for n in z.namelist() if n.endswith("conversations.json")), None)
+            if not name:
+                raise SystemExit("No conversations.json found inside the zip.")
+            with z.open(name) as f:
+                return json.loads(f.read().decode("utf-8"))
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
 def _parts_to_text(content):
     if not isinstance(content, dict):
         return ""
@@ -53,12 +68,11 @@ def _messages(convo):
 
 def main():
     ap = argparse.ArgumentParser(description="Print stats from a ChatGPT conversations.json export.")
-    ap.add_argument("input", help="Path to conversations.json from your ChatGPT export")
+    ap.add_argument("input", help="Path to conversations.json OR the export .zip")
     ap.add_argument("--top-words", type=int, default=12, help="How many top words to show (default 12)")
     args = ap.parse_args()
 
-    with open(args.input, encoding="utf-8") as f:
-        data = json.load(f)
+    data = _load_export(args.input)
     convos = [c for c in (data if isinstance(data, list) else data.get("conversations", [data])) if isinstance(c, dict)]
 
     total_msgs = user_msgs = asst_msgs = 0
